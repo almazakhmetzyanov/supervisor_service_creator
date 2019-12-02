@@ -14,5 +14,5 @@ This script creates new supervisor service(conf file, log files and then restart
 
 Double quotes is important!
 
-# example:
+# Example:
 sh ./ssc.sh -sn="service_name" -rc="python python.py" -d="some/path/" -u="my_lover" -eld="path/to/log/file.log" -slt="path/to/log/file.log"
