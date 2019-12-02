@@ -8,7 +8,7 @@ This script creates new supervisor service(conf file, log files and then restart
 -rc="" --running-command="" running service command <br/>
 -d="" --directory="" service directory <br/>
 # Not required
--u="" --user="" user. Default: root
+-u="" --user="" user. Default: root <br/>
 -eld="" --err-logfile-dir="" error logfile directory. Default: /var/log/service_name/err_service_name.log <br/>
 -sld="" --stdout-logfile-dir="" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log <br/>
 
