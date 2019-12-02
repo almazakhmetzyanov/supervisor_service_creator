@@ -13,3 +13,6 @@ This script creates new supervisor service(conf file, log files and then restart
 -sld="" --stdout-logfile-dir="" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log <br/>
 
 Double quotes is important!
+
+# example:
+sh ./ssc.sh -sn="service_name" -rc="python python.py" -d="some/path/" -u="my_lover" -eld="path/to/log/file.log" -slt="path/to/log/file.log"
