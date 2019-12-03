@@ -14,15 +14,15 @@ for i in "$@"; do
     fi
   done
   if [[ $is_arg_valid != true ]]; then
-    echo "${RED}Unexpected argument: ${NC}" $i
-    echo "This script creates prepared supervisor conf file. Arguments: "
-    echo "${GREEN}Double quotes is important! ${NC}"
-    echo "${RED}Required:${NC} -sn=\"\" --service-name=\"\" name of service."
-    echo "${RED}Required:${NC} -rc=\"\" --running-command=\"\" running service command"
-    echo "${RED}Required:${NC} -d=\"\" --directory=\"\" service directory"
-    echo "-u=\"\" --user=\"\" user. Default: root"
-    echo "-eld=\"\" --err-logfile-dir=\"\" error logfile directory. Default: /var/log/service_name/err_service_name.log"
-    echo "-sld=\"\" --stdout-logfile-dir=\"\" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log"
+    echo -e "${RED}Unexpected argument: ${NC}" $i
+    echo -e "This script creates prepared supervisor conf file. Arguments: "
+    echo -e "${GREEN}Double quotes is important! ${NC}"
+    echo -e "${RED}Required:${NC} -sn=\"\" --service-name=\"\" name of service."
+    echo -e "${RED}Required:${NC} -rc=\"\" --running-command=\"\" running service command"
+    echo -e "${RED}Required:${NC} -d=\"\" --directory=\"\" service directory"
+    echo -e "-u=\"\" --user=\"\" user. Default: root"
+    echo -e "-eld=\"\" --err-logfile-dir=\"\" error logfile directory. Default: /var/log/service_name/err_service_name.log"
+    echo -e "-sld=\"\" --stdout-logfile-dir=\"\" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log"
     exit 0
   fi
   is_arg_valid=false
@@ -52,14 +52,14 @@ for i in "$@"; do
     shift
     ;;
   -h)
-    echo "This script creates new supervisor service(conf file, log files and then restart supervisor. Arguments: "
-    echo "${GREEN}Double quotes is important! ${NC}"
-    echo "${RED}Required:${NC} -sn=\"\" --service-name=\"\" name of service."
-    echo "${RED}Required:${NC} -rc=\"\" --running-command=\"\" running service command"
-    echo "${RED}Required:${NC} -d=\"\" --directory=\"\" service directory"
-    echo "-u=\"\" --user=\"\" user. Default: root"
-    echo "-eld=\"\" --err-logfile-dir=\"\" error logfile directory. Default: /var/log/service_name/err_service_name.log"
-    echo "-sld=\"\" --stdout-logfile-dir=\"\" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log"
+    echo -e "This script creates new supervisor service(conf file, log files and then restart supervisor. Arguments: "
+    echo -e "${GREEN}Double quotes is important! ${NC}"
+    echo -e "${RED}Required:${NC} -sn=\"\" --service-name=\"\" name of service."
+    echo -e "${RED}Required:${NC} -rc=\"\" --running-command=\"\" running service command"
+    echo -e "${RED}Required:${NC} -d=\"\" --directory=\"\" service directory"
+    echo -e "-u=\"\" --user=\"\" user. Default: root"
+    echo -e "-eld=\"\" --err-logfile-dir=\"\" error logfile directory. Default: /var/log/service_name/err_service_name.log"
+    echo -e "-sld=\"\" --stdout-logfile-dir=\"\" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log"
     exit 0
     ;;
   --service-name=*)
@@ -87,14 +87,14 @@ for i in "$@"; do
     shift
     ;;
   --help)
-    echo "This script creates new supervisor service(conf file, log files and then restart supervisor. Arguments: "
-    echo "${GREEN}Double quotes is important! ${NC}"
-    echo "${RED}Required:${NC} -sn=\"\" --service-name=\"\" name of service."
-    echo "${RED}Required:${NC} -rc=\"\" --running-command=\"\" running service command"
-    echo "${RED}Required:${NC} -d=\"\" --directory=\"\" service directory"
-    echo "-u=\"\" --user=\"\" user. Default: root"
-    echo "-eld=\"\" --err-logfile-dir=\"\" error logfile directory. Default: /var/log/service_name/err_service_name.log"
-    echo "-sld=\"\" --stdout-logfile-dir=\"\" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log"
+    echo -e "This script creates new supervisor service(conf file, log files and then restart supervisor. Arguments: "
+    echo -e "${GREEN}Double quotes is important! ${NC}"
+    echo -e "${RED}Required:${NC} -sn=\"\" --service-name=\"\" name of service."
+    echo -e "${RED}Required:${NC} -rc=\"\" --running-command=\"\" running service command"
+    echo -e "${RED}Required:${NC} -d=\"\" --directory=\"\" service directory"
+    echo -e "-u=\"\" --user=\"\" user. Default: root"
+    echo -e "-eld=\"\" --err-logfile-dir=\"\" error logfile directory. Default: /var/log/service_name/err_service_name.log"
+    echo -e "-sld=\"\" --stdout-logfile-dir=\"\" stdout logfile directory. Default: /var/log/service_name/stdout_service_name.log"
     exit 0
     ;;
   esac
@@ -116,7 +116,7 @@ if [ -z "${DIRECTORY}" ]; then
 fi
 
 if [ -z "${ERRLOGFILEDIR}" ]; then
-  ERRLOGFILEDIR=/var/log/"${SERVICE_NAME}"/err_"${SERVICE_NAME}".log
+  ERRLOGFILEDIR=/var/log/err_"${SERVICE_NAME}".log
   echo "Created default errlogfile ${ERRLOGFILEDIR}"
     echo >"${ERRLOGFILEDIR}"
     else
@@ -124,7 +124,7 @@ if [ -z "${ERRLOGFILEDIR}" ]; then
 fi
 
 if [ -z "${STDLOGFILEDIR}" ]; then
-  STDLOGFILEDIR=/var/log/"${SERVICE_NAME}"/err_"${SERVICE_NAME}".log
+  STDLOGFILEDIR=/var/log/std_"${SERVICE_NAME}".log
   echo "Created default stdlogfile ${STDLOGFILEDIR}"
     echo >"${STDLOGFILEDIR}"
     else
@@ -135,21 +135,21 @@ if [ -z "${SERVICE_USER}" ]; then
   SERVICE_USER="root"
 fi
 
-conf_template="[program:${SERVICE_NAME}]\n
-command = ${RUNNING_COMMAND}\n
-directory = ${DIRECTORY}\n
-stopasgroup = true\n
-autostart = false\n
-autorestart = true\n
-startretries = 3\n
-stderr_logfile = ${ERRLOGFILEDIR}\n
-stdout_logfile = ${STDLOGFILEDIR}\n
-user = ${SERVICE_USER}\n"
-echo "${conf_template}" >/etc/supervisor/conf.d/"${SERVICE_NAME}".conf
+conf_template="[program:${SERVICE_NAME}]
+command = ${RUNNING_COMMAND}
+directory = ${DIRECTORY}
+stopasgroup = true
+autostart = false
+autorestart = true
+startretries = 3
+stderr_logfile = ${ERRLOGFILEDIR}
+stdout_logfile = ${STDLOGFILEDIR}
+user = ${SERVICE_USER}"
+echo -e "${conf_template}" >/etc/supervisor/conf.d/"${SERVICE_NAME}".conf
 
-echo "Created supervisor config: "
-echo "${conf_template}"
-echo "Restarting supervisor..."
+echo -e "Created supervisor config: "
+echo -e "${conf_template}"
+echo -e "Restarting supervisor..."
 service supervisor restart
-echo "Supervisor restarted."
-echo "${GREEN}========FINISH========${NC}"
+echo -e "Supervisor restarted."
+echo -e "${GREEN}========FINISH========${NC}"
